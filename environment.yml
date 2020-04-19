@@ -1,0 +1,11 @@
+name: Imagdi
+channels:
+  - defaults
+  - cprescher
+dependencies:
+  - flask
+  - fabio
+  - pytest
+  - pillow
+  - pylint
+  - rope
