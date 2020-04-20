@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-conda env create -f enfironment.yml --prefix ./envs
+conda env create -f environment.yml --prefix ./envs
