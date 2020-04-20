@@ -8,7 +8,7 @@ from pathlib import Path
 from PIL import Image
 import numpy as np
 
-from backend.app import app
+from imagdi import create_app
 
 
 def create_temp_tiff(img_data):
@@ -41,6 +41,7 @@ def create_tiff_file_series(img_arrays):
 
 class BasicTests(unittest.TestCase):
     def setUp(self):
+        app = create_app()
         app.config['TESTING'] = True
         self.app = app.test_client()
 
