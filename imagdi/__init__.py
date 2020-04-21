@@ -1,8 +1,10 @@
 import io
+import time
 from copy import deepcopy
 
 import flask
-from flask import request
+from flask import request, jsonify, send_file
+from flask_cors import CORS
 
 import numpy as np
 import fabio
@@ -83,9 +85,15 @@ def create_app(test_config=None):
 
     @app.route('/random', methods=['POST'])
     def random():
-        x_dim = int(request.form.get('x_dim'))
-        y_dim = int(request.form.get('y_dim'))
-        return convert_array_to_bytes(np.random.random((x_dim, y_dim)))
+        data = request.get_json()
+        x_dim = int(data['x_dim'])
+        y_dim = int(data['y_dim'])
+
+        t1 = time.time()
+        data = convert_array_to_bytes(np.random.random((x_dim, y_dim)))
+        print('It took {} s'.format(time.time()-t1))
+
+        return data
 
 
     @app.route('/gaussian', methods=['POST'])
@@ -110,4 +118,5 @@ def create_app(test_config=None):
         gaussian = gaussian_2d(**param)
         return convert_array_to_bytes(gaussian)
 
+    CORS(app)
     return app
